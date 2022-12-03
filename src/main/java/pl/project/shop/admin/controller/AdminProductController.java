@@ -8,7 +8,7 @@ import pl.project.shop.admin.dto.AdminProductDto;
 import pl.project.shop.admin.model.AdminProduct;
 import pl.project.shop.admin.service.AdminProductService;
 
-import java.util.Locale;
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,13 +28,18 @@ public class AdminProductController {
     }
 
     @PostMapping("/admin/products")
-    public AdminProduct createProduct(@RequestBody AdminProductDto adminProductDto) {
+    public AdminProduct createProduct(@RequestBody @Valid AdminProductDto adminProductDto) {
         return productService.createProduct(mapAdminProduct(adminProductDto, EMPTY_ID));
     }
 
     @PutMapping("/admin/products/{id}")
-    public AdminProduct updateProduct(@RequestBody AdminProductDto adminProductDto, @PathVariable Long id) {
+    public AdminProduct updateProduct(@RequestBody @Valid AdminProductDto adminProductDto, @PathVariable Long id) {
         return productService.updateProduct(mapAdminProduct(adminProductDto, id));
+    }
+
+    @DeleteMapping("/admin/products/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
     }
 
     private AdminProduct mapAdminProduct(AdminProductDto adminProductDto, Long id) {
@@ -44,7 +49,7 @@ public class AdminProductController {
                 .category(adminProductDto.getCategory())
                 .description(adminProductDto.getDescription())
                 .price(adminProductDto.getPrice())
-                .currency(adminProductDto.getCurrency().toUpperCase(Locale.ROOT))
+                .currency(adminProductDto.getCurrency())
                 .build();
     }
 }
