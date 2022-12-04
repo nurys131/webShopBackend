@@ -1,8 +1,7 @@
-package pl.project.shop.admin.controller;
+package pl.project.shop.admin.product.controller;
 
 import com.github.slugify.Slugify;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,19 +9,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import pl.project.shop.admin.dto.AdminProductDto;
-import pl.project.shop.admin.dto.UploadResponse;
-import pl.project.shop.admin.model.AdminProduct;
-import pl.project.shop.admin.service.AdminProductImageService;
-import pl.project.shop.admin.service.AdminProductService;
+import pl.project.shop.admin.product.dto.AdminProductDto;
+import pl.project.shop.admin.product.dto.UploadResponse;
+import pl.project.shop.admin.product.model.AdminProduct;
+import pl.project.shop.admin.product.service.AdminProductImageService;
+import pl.project.shop.admin.product.service.AdminProductService;
 
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @RestController
 @RequiredArgsConstructor

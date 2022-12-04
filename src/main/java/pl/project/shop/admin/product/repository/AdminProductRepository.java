@@ -1,8 +1,7 @@
-package pl.project.shop.admin.repository;
+package pl.project.shop.admin.product.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.project.shop.admin.model.AdminProduct;
-import pl.project.shop.product.model.Product;
+import pl.project.shop.admin.product.model.AdminProduct;
 
 import java.util.List;
 

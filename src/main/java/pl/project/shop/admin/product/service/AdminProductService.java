@@ -1,18 +1,11 @@
-package pl.project.shop.admin.service;
+package pl.project.shop.admin.product.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import pl.project.shop.admin.model.AdminProduct;
-import pl.project.shop.admin.repository.AdminProductRepository;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import pl.project.shop.admin.product.model.AdminProduct;
+import pl.project.shop.admin.product.repository.AdminProductRepository;
 
 @Service
 @RequiredArgsConstructor

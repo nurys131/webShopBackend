@@ -1,12 +1,11 @@
-package pl.project.shop.admin.dto;
+package pl.project.shop.admin.product.dto;
 
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
-import pl.project.shop.admin.model.AdminProductCurrency;
+import pl.project.shop.admin.product.model.AdminProductCurrency;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 

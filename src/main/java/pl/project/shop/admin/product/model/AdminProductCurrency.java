@@ -1,4 +1,4 @@
-package pl.project.shop.admin.model;
+package pl.project.shop.admin.product.model;
 
 public enum AdminProductCurrency {
     PLN
