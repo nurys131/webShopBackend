@@ -1,10 +1,9 @@
-package pl.project.shop.admin.service;
+package pl.project.shop.admin.product.service;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import pl.project.shop.admin.product.service.UploadedFilesNameUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UploadedFilesNameUtilsTest {
 
