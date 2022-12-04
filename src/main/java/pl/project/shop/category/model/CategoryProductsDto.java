@@ -1,9 +1,8 @@
 package pl.project.shop.category.model;
 
 import org.springframework.data.domain.Page;
-import pl.project.shop.category.model.Category;
-import pl.project.shop.product.model.Product;
+import pl.project.shop.product.dto.ProductListDto;
 
-public record CategoryProductsDto(Category category, Page<Product> products) {
+public record CategoryProductsDto(Category category, Page<ProductListDto> products) {
 }
 

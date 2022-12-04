@@ -25,7 +25,7 @@ public class Product {
     private String currency;
     private String image;
     private String slug;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "productId")
     private List<Review> reviews;
 }
