@@ -1,10 +1,8 @@
-package pl.project.shop.category.model;
+package pl.project.shop.common.model;
 
 import lombok.Getter;
-import pl.project.shop.product.model.Product;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
