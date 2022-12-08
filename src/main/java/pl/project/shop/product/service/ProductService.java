@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.project.shop.common.model.Product;
-import pl.project.shop.product.repository.ProductRepository;
+import pl.project.shop.common.repository.ProductRepository;
 
 @Service
 @RequiredArgsConstructor

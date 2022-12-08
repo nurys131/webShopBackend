@@ -7,11 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.project.shop.common.model.Category;
-import pl.project.shop.category.model.CategoryProductsDto;
+import pl.project.shop.category.dto.CategoryProductsDto;
 import pl.project.shop.category.repository.CategoryRepository;
-import pl.project.shop.product.dto.ProductListDto;
+import pl.project.shop.common.dto.ProductListDto;
 import pl.project.shop.common.model.Product;
-import pl.project.shop.product.repository.ProductRepository;
+import pl.project.shop.common.repository.ProductRepository;
 
 import java.util.List;
 

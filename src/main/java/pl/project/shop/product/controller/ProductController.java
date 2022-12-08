@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.project.shop.product.dto.ProductListDto;
+import pl.project.shop.common.dto.ProductListDto;
 import pl.project.shop.common.model.Product;
 import pl.project.shop.product.service.ProductService;
 

@@ -1,4 +1,4 @@
-package pl.project.shop.product.repository;
+package pl.project.shop.common.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
