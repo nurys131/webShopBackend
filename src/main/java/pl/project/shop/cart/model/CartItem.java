@@ -1,6 +1,10 @@
 package pl.project.shop.cart.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.project.shop.common.model.Product;
 
 import javax.persistence.*;
