@@ -28,7 +28,7 @@ public class CartMapper {
 
     private static CartSummaryItemDto mapToCartItem(CartItem cartItem) {
         return CartSummaryItemDto.builder()
-                .id(cartItem.getCartId())
+                .id(cartItem.getId())
                 .quantity(cartItem.getQuantity())
                 .product(mapToProductDto(cartItem.getProduct()))
                 .lineValue(calculateLineValue(cartItem))
@@ -60,6 +60,6 @@ public class CartMapper {
         return items.stream()
                 .map(CartMapper::calculateLineValue)
                 .reduce(BigDecimal::add)
-                .orElseThrow();
+                .orElse(BigDecimal.ZERO);
     }
 }
