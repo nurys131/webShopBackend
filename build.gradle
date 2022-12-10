@@ -29,6 +29,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'com.github.slugify:slugify:2.5'
     implementation 'org.jsoup:jsoup:1.15.3'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
 

@@ -3,6 +3,7 @@ package pl.project.shop.order.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.project.shop.common.mail.EmailSimpleService;
 import pl.project.shop.common.model.Cart;
 import pl.project.shop.common.model.CartItem;
 import pl.project.shop.common.repository.CartItemRepository;
@@ -30,9 +31,9 @@ public class OrderService {
     private final CartRepository cartRepository;
     private final OrderRowRepository orderRowRepository;
     private final CartItemRepository cartItemRepository;
-    private final ShipmentService shipmentService;
     private final ShipmentRepository shipmentRepository;
     private final PaymentRepository paymentRepository;
+    private final EmailSimpleService emailSimpleService;
 
     @Transactional
     public OrderSummary placeOrder(OrderDto orderDto) {
@@ -57,6 +58,7 @@ public class OrderService {
 
         cartItemRepository.deleteByCartId(orderDto.getCartId());
         cartRepository.deleteByCartId(orderDto.getCartId());
+        emailSimpleService.send(order.getEmail(), "Twoje zamówienie zostało przyjęte", createEmailMessage(order));
 
         return OrderSummary.builder()
                 .id(newOrder.getId())
@@ -65,6 +67,15 @@ public class OrderService {
                 .grossValue(newOrder.getGrossValue())
                 .payment(payment)
                 .build();
+    }
+
+    private String createEmailMessage(Order order) {
+        return "Twoje zamówienie o id: " + order.getId() +
+                "\nWartość: " + order.getGrossValue() + " PLN " +
+                "\n\n" +
+                "\nPłatnośc: " + order.getPayment().getName() +
+                (order.getPayment().getNote() != null ? "\n" + order.getPayment().getNote() : "")+
+                "\n\nDziękujemy za zakupy w WebShop.";
     }
 
     private BigDecimal calculateGrossValue(List<CartItem> items, Shipment shipment) {
