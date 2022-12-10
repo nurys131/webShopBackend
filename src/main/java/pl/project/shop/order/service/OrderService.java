@@ -10,10 +10,12 @@ import pl.project.shop.common.repository.CartRepository;
 import pl.project.shop.order.model.Order;
 import pl.project.shop.order.model.OrderRow;
 import pl.project.shop.order.model.OrderStatus;
+import pl.project.shop.order.model.Shipment;
 import pl.project.shop.order.model.dto.OrderDto;
 import pl.project.shop.order.model.dto.OrderSummary;
 import pl.project.shop.order.repository.OrderRepository;
 import pl.project.shop.order.repository.OrderRowRepository;
+import pl.project.shop.order.repository.ShipmentRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,10 +28,13 @@ public class OrderService {
     private final CartRepository cartRepository;
     private final OrderRowRepository orderRowRepository;
     private final CartItemRepository cartItemRepository;
+    private final ShipmentService shipmentService;
+    private final ShipmentRepository shipmentRepository;
 
     @Transactional
     public OrderSummary placeOrder(OrderDto orderDto) {
         Cart cart = cartRepository.findById(orderDto.getCartId()).orElseThrow();
+        Shipment shipment = shipmentRepository.findById(orderDto.getShipmentId()).orElseThrow();
         Order order = Order.builder()
                 .firstname(orderDto.getFirstName())
                 .lastname(orderDto.getLastName())
@@ -40,10 +45,10 @@ public class OrderService {
                 .phone(orderDto.getPhone())
                 .placeDate(LocalDateTime.now())
                 .orderStatus(OrderStatus.NEW)
-                .grossValue(calculateGrossValue(cart.getItems()))
+                .grossValue(calculateGrossValue(cart.getItems(), shipment))
                 .build();
         Order newOrder = orderRepository.save(order);
-        saveOrderRows(cart, newOrder.getId());
+        saveOrderRows(cart, newOrder.getId(), shipment);
 
         cartItemRepository.deleteByCartId(orderDto.getCartId());
         cartRepository.deleteByCartId(orderDto.getCartId());
@@ -56,20 +61,35 @@ public class OrderService {
                 .build();
     }
 
-    private BigDecimal calculateGrossValue(List<CartItem> items) {
+    private BigDecimal calculateGrossValue(List<CartItem> items, Shipment shipment) {
         return items.stream()
                 .map(cartItem -> cartItem.getProduct().getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())))
                 .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
+                .orElse(BigDecimal.ZERO)
+                .add(shipment.getPrice());
     }
 
-    private void saveOrderRows(Cart cart, Long id) {
+    private void saveOrderRows(Cart cart, Long orderId, Shipment shipment) {
+        saveProductRows(cart, orderId);
+        saveShipmentRow(orderId, shipment);
+    }
+
+    private void saveShipmentRow(Long orderId, Shipment shipment) {
+        orderRowRepository.save(OrderRow.builder()
+                .quantity(1)
+                .price(shipment.getPrice())
+                .shipmentId(shipment.getId())
+                .orderId(orderId)
+                .build());
+    }
+
+    private void saveProductRows(Cart cart, Long orderId) {
         cart.getItems().stream()
                 .map(cartItem -> OrderRow.builder()
                         .quantity(cartItem.getQuantity())
                         .productId(cartItem.getId())
                         .price(cartItem.getProduct().getPrice())
-                        .orderId(id)
+                        .orderId(orderId)
                         .build()
                 )
                 .peek(orderRow -> orderRowRepository.save(orderRow))
