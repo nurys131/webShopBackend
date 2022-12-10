@@ -1,4 +1,4 @@
-package pl.project.shop.cart.model;
+package pl.project.shop.common.model;
 
 import lombok.*;
 

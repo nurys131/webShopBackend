@@ -2,7 +2,7 @@ package pl.project.shop.cart.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.project.shop.cart.repository.CartItemRepository;
+import pl.project.shop.common.repository.CartItemRepository;
 
 @Service
 @RequiredArgsConstructor

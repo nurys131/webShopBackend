@@ -1,9 +1,9 @@
-package pl.project.shop.cart.repository;
+package pl.project.shop.common.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import pl.project.shop.cart.model.CartItem;
+import pl.project.shop.common.model.CartItem;
 
 import java.util.List;
 
@@ -13,4 +13,8 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     @Query("delete from CartItem ci where ci.cartId in (:ids)")
     @Modifying
     void deleteAllByCartIdIn(List<Long> ids);
+
+    @Query("delete from CartItem ci where ci.cartId=:cartId")
+    @Modifying
+    void deleteByCartId(Long cartId);
 }

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.project.shop.cart.model.Cart;
+import pl.project.shop.common.model.Cart;
 import pl.project.shop.cart.model.dto.CartProductDto;
-import pl.project.shop.cart.repository.CartRepository;
+import pl.project.shop.common.repository.CartRepository;
 import pl.project.shop.common.model.Product;
 import pl.project.shop.common.repository.ProductRepository;
 
