@@ -2,6 +2,7 @@ package pl.project.shop.order.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import pl.project.shop.order.model.Payment;
 import pl.project.shop.order.model.Shipment;
 
 import java.util.List;
@@ -10,4 +11,5 @@ import java.util.List;
 @Builder
 public class InitOrder {
     private List<Shipment> shipment;
+    private List<Payment> payment;
 }

@@ -10,11 +10,13 @@ import pl.project.shop.common.repository.CartRepository;
 import pl.project.shop.order.model.Order;
 import pl.project.shop.order.model.OrderRow;
 import pl.project.shop.order.model.OrderStatus;
+import pl.project.shop.order.model.Payment;
 import pl.project.shop.order.model.Shipment;
 import pl.project.shop.order.model.dto.OrderDto;
 import pl.project.shop.order.model.dto.OrderSummary;
 import pl.project.shop.order.repository.OrderRepository;
 import pl.project.shop.order.repository.OrderRowRepository;
+import pl.project.shop.order.repository.PaymentRepository;
 import pl.project.shop.order.repository.ShipmentRepository;
 
 import java.math.BigDecimal;
@@ -30,11 +32,13 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final ShipmentService shipmentService;
     private final ShipmentRepository shipmentRepository;
+    private final PaymentRepository paymentRepository;
 
     @Transactional
     public OrderSummary placeOrder(OrderDto orderDto) {
         Cart cart = cartRepository.findById(orderDto.getCartId()).orElseThrow();
         Shipment shipment = shipmentRepository.findById(orderDto.getShipmentId()).orElseThrow();
+        Payment payment = paymentRepository.findById(orderDto.getPaymentId()).orElseThrow();
         Order order = Order.builder()
                 .firstname(orderDto.getFirstName())
                 .lastname(orderDto.getLastName())
@@ -46,6 +50,7 @@ public class OrderService {
                 .placeDate(LocalDateTime.now())
                 .orderStatus(OrderStatus.NEW)
                 .grossValue(calculateGrossValue(cart.getItems(), shipment))
+                .payment(payment)
                 .build();
         Order newOrder = orderRepository.save(order);
         saveOrderRows(cart, newOrder.getId(), shipment);
@@ -58,6 +63,7 @@ public class OrderService {
                 .placeDate(newOrder.getPlaceDate())
                 .status(newOrder.getOrderStatus())
                 .grossValue(newOrder.getGrossValue())
+                .payment(payment)
                 .build();
     }
 

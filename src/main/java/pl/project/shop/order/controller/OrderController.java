@@ -10,6 +10,7 @@ import pl.project.shop.order.model.dto.InitOrder;
 import pl.project.shop.order.model.dto.OrderDto;
 import pl.project.shop.order.model.dto.OrderSummary;
 import pl.project.shop.order.service.OrderService;
+import pl.project.shop.order.service.PaymentService;
 import pl.project.shop.order.service.ShipmentService;
 
 @RestController
@@ -18,6 +19,7 @@ import pl.project.shop.order.service.ShipmentService;
 public class OrderController {
     private final OrderService orderService;
     private final ShipmentService shipmentService;
+    private final PaymentService paymentService;
 
     @PostMapping
     public OrderSummary placeOrder(@RequestBody OrderDto orderDto) {
@@ -28,6 +30,7 @@ public class OrderController {
     public InitOrder initDate() {
         return InitOrder.builder()
                 .shipment(shipmentService.getShipments())
+                .payment(paymentService.getPayments())
                 .build();
     }
 }
