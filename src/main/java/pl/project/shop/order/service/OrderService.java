@@ -3,7 +3,7 @@ package pl.project.shop.order.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.project.shop.common.mail.EmailSimpleService;
+import pl.project.shop.common.mail.EmailClientService;
 import pl.project.shop.common.model.Cart;
 import pl.project.shop.common.model.CartItem;
 import pl.project.shop.common.repository.CartItemRepository;
@@ -33,7 +33,7 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final ShipmentRepository shipmentRepository;
     private final PaymentRepository paymentRepository;
-    private final EmailSimpleService emailSimpleService;
+    private final EmailClientService emailClientService;
 
     @Transactional
     public OrderSummary placeOrder(OrderDto orderDto) {
@@ -58,7 +58,7 @@ public class OrderService {
 
         cartItemRepository.deleteByCartId(orderDto.getCartId());
         cartRepository.deleteByCartId(orderDto.getCartId());
-        emailSimpleService.send(order.getEmail(), "Twoje zamówienie zostało przyjęte", createEmailMessage(order));
+        emailClientService.getInstance().send(order.getEmail(), "Twoje zamówienie zostało przyjęte", createEmailMessage(order));
 
         return OrderSummary.builder()
                 .id(newOrder.getId())
