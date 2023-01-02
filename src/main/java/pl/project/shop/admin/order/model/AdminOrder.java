@@ -2,18 +2,10 @@ package pl.project.shop.admin.order.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +21,8 @@ public class AdminOrder {
     private LocalDateTime placeDate;
     @Enumerated(EnumType.STRING)
     private AdminOrderStatus orderStatus;
-    @OneToMany(fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
     @JoinColumn(name = "orderId")
     private List<AdminOrderRow> orderRows;
     private BigDecimal grossValue;
@@ -42,4 +35,8 @@ public class AdminOrder {
     private String phone;
     @OneToOne
     private AdminPayment payment;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany
+    @JoinColumn(name = "orderId")
+    private List<AdminOrderLog> orderLogs;
 }
