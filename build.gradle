@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.github.slugify:slugify:2.5'
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.apache.commons:commons-csv:1.9.0'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
 
