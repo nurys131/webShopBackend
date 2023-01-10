@@ -48,6 +48,7 @@ public class AdminOrderStatsService {
                 .salesSum(salesList.stream().reduce(BigDecimal::add).orElse(BigDecimal.ZERO))
                 .build();
     }
+
     private AdminOrderStatsValue aggregateValues(int i, List<AdminOrder> orders) {
         return orders.stream()
                 .filter(adminOrder -> adminOrder.getPlaceDate().getDayOfMonth() == i)
